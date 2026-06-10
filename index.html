@@ -55,6 +55,26 @@ body{font-family:Georgia,'Times New Roman',serif;background:#0d1525;color:#f8f8f
 .btn-gerar:hover{background:var(--teal2);transform:translateY(-1px);}
 .btn-gerar:disabled{opacity:.6;cursor:not-allowed;transform:none;}
 
+/* Painel de configuração */
+.cfg-bar{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:10px 14px;margin-bottom:16px;cursor:pointer;transition:background .2s;}
+.cfg-bar:hover{background:rgba(255,255,255,0.07);}
+.cfg-dot{width:8px;height:8px;border-radius:50%;background:#555;flex-shrink:0;}
+.cfg-dot.ok{background:#27ae60;}
+.cfg-lbl{font-family:Arial,sans-serif;font-size:11px;color:rgba(255,255,255,0.55);margin-left:9px;flex:1;}
+.cfg-lbl strong{color:white;}
+.cfg-ico{font-size:12px;color:rgba(255,255,255,0.3);}
+.cfg-panel{display:none;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:16px;margin-bottom:16px;gap:10px;flex-direction:column;}
+.cfg-panel.open{display:flex;}
+.cfg-panel label{font-family:Arial,sans-serif;font-size:10px;color:rgba(255,255,255,0.45);letter-spacing:.5px;margin-bottom:3px;display:block;}
+.cfg-row{display:flex;gap:8px;}
+.cfg-input{flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:9px 12px;color:white;font-family:Arial,sans-serif;font-size:11px;outline:none;}
+.cfg-input:focus{border-color:var(--teal2);}
+.cfg-btn{background:var(--teal);color:white;border:none;border-radius:8px;padding:9px 14px;font-family:Arial,sans-serif;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .2s;}
+.cfg-btn:hover{background:var(--teal2);}
+.cfg-clear{background:transparent;color:rgba(255,255,255,0.3);border:none;font-family:Arial,sans-serif;font-size:10px;cursor:pointer;text-align:left;}
+.cfg-clear:hover{color:rgba(255,255,255,0.55);}
+.cfg-hint{font-family:Arial,sans-serif;font-size:10px;color:rgba(255,255,255,0.3);line-height:1.5;}
+
 
 /* === SHARE MODAL === */
 #share-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:200;align-items:center;justify-content:center;padding:16px;}
@@ -152,6 +172,13 @@ body{font-family:Georgia,'Times New Roman',serif;background:#0d1525;color:#f8f8f
 .po-lbl{font-family:Arial,sans-serif;font-size:13px;font-weight:700;color:white;display:block;}
 .po-val{font-family:Arial,sans-serif;font-size:11px;color:rgba(255,255,255,0.55);margin-top:3px;display:block;}
 .paym-hint{font-family:Arial,sans-serif;font-size:9px;color:rgba(255,255,255,0.25);text-align:center;margin-top:auto;padding-top:6px;}
+.parc-selector{display:none;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.12);}
+.parc-lbl{font-family:Arial,sans-serif;font-size:10px;color:rgba(255,255,255,0.45);display:block;margin-bottom:8px;}
+.parc-btns{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px;}
+.parc-btn{background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.15);border-radius:7px;padding:6px 10px;color:rgba(255,255,255,0.7);font-family:Arial,sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;}
+.parc-btn:hover{border-color:var(--teal2);color:white;}
+.parc-btn.sel{background:var(--teal);border-color:var(--teal);color:white;}
+.parc-valor{font-family:Arial,sans-serif;font-size:13px;font-weight:700;color:var(--teal2);min-height:18px;}
 
 /* PAGE 5: Contato / CTA */
 .p5-img{height:38%;position:relative;overflow:hidden;flex-shrink:0;}
@@ -201,6 +228,31 @@ body{font-family:Georgia,'Times New Roman',serif;background:#0d1525;color:#f8f8f
   </div>
 
   <div class="fcard">
+
+    <!-- Config: planilha + responsável -->
+    <div class="cfg-bar" onclick="toggleCfg()">
+      <div class="cfg-dot" id="cfg-dot"></div>
+      <span class="cfg-lbl" id="cfg-lbl">Carregando...</span>
+      <span class="cfg-ico">⚙</span>
+    </div>
+    <div class="cfg-panel" id="cfg-panel">
+      <div>
+        <label>URL do Apps Script (Google Sheets)</label>
+        <div class="cfg-row">
+          <input class="cfg-input" id="cfg-url" type="text" placeholder="https://script.google.com/macros/s/..."/>
+          <button class="cfg-btn" onclick="salvarCfg()">Salvar</button>
+        </div>
+      </div>
+      <div>
+        <label>Seu nome (aparece no registro)</label>
+        <div class="cfg-row">
+          <input class="cfg-input" id="cfg-resp" type="text" placeholder="Ex: Cezar March"/>
+          <button class="cfg-btn" onclick="salvarCfg()">Salvar</button>
+        </div>
+      </div>
+      <div class="cfg-hint">Configure uma vez — fica salvo neste navegador.<br>Cada membro da equipe faz isso no próprio computador.</div>
+      <button class="cfg-clear" onclick="limparCfg()">✕ Remover configuração deste navegador</button>
+    </div>
 
     <div class="fsec">
       <div class="fsec-title">01 · Dados do Cliente</div>
@@ -371,6 +423,7 @@ window.addEventListener('load', () => {
     if (data) { _data = data; _isClient = true; renderFlipbook(data, true); return; }
   }
   document.getElementById('form-screen').style.display = 'flex';
+  atualizarCfgUI();
 });
 
 /* ===================== LZSTRING (compressão de URL) ===================== */
@@ -420,6 +473,64 @@ function updPreview() {
   $('pv-sucumb').style.display=sucumb>0?'flex':'none'; if(sucumb>0) $('pv-sucumb-v').textContent='R$ '+fmtBRL(sucumb);
 }
 
+/* ===================== CONFIG (planilha + responsável) ===================== */
+const CK_URL  = 'sma_sheets_url';
+const CK_RESP = 'sma_resp';
+function getCfg() {
+  return { url: localStorage.getItem(CK_URL)||'', resp: localStorage.getItem(CK_RESP)||'' };
+}
+function atualizarCfgUI() {
+  const {url, resp} = getCfg();
+  const ok = !!url;
+  $('cfg-dot').classList.toggle('ok', ok);
+  $('cfg-lbl').innerHTML = ok
+    ? `<strong>Planilha ativa</strong>${resp ? ' · ' + resp : ''}`
+    : 'Registro <strong>não configurado</strong> — clique para configurar';
+}
+function toggleCfg() {
+  const p = $('cfg-panel');
+  p.classList.toggle('open');
+  if (p.classList.contains('open')) {
+    const {url, resp} = getCfg();
+    $('cfg-url').value  = url;
+    $('cfg-resp').value = resp;
+  }
+}
+function salvarCfg() {
+  const url  = $('cfg-url').value.trim();
+  const resp = $('cfg-resp').value.trim();
+  if (url)  localStorage.setItem(CK_URL,  url);
+  if (resp) localStorage.setItem(CK_RESP, resp);
+  $('cfg-panel').classList.remove('open');
+  atualizarCfgUI();
+}
+function limparCfg() {
+  localStorage.removeItem(CK_URL);
+  localStorage.removeItem(CK_RESP);
+  $('cfg-panel').classList.remove('open');
+  atualizarCfgUI();
+}
+async function registrarNaPlanilha(d, link) {
+  const {url, resp} = getCfg();
+  if (!url) return;
+  const tipos = {sentenca:'Sentença Procedente',acordo_ext:'Acordo Extrajudicial',acordo_jud:'Acordo Judicial',exclusao:'Exclusão do Polo Passivo',recurso:'Recurso Provido',liminar:'Liminar Concedida',contrato:'Contrato Anulado',negociacao:'Negociação Favorável',outro:'Outro'};
+  const payload = {
+    resp: resp || '—',
+    cliente: d.trat + ' ' + d.nome,
+    resultado: tipos[d.tipo] || d.tipo,
+    prov:  d.prov  > 0 ? 'R$ ' + fmtBRL(d.prov)  : '',
+    exito: d.exito > 0 ? 'R$ ' + fmtBRL(d.exito) : '',
+    link
+  };
+  try {
+    await fetch(url, {
+      method: 'POST', mode: 'no-cors',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+  } catch { /* falha silenciosa — não interrompe o fluxo */ }
+}
+
 /* ===================== ENCURTADOR (is.gd — gratuito, sem conta) ===================== */
 async function encurtarUrl(longUrl) {
   try {
@@ -458,6 +569,7 @@ async function gerarFolder() {
   const url = await encurtarUrl(longUrl);
   btn.textContent = '⚡ Gerar Link para o Cliente'; btn.disabled = false;
 
+  registrarNaPlanilha(_data, url);
   $('share-link-input').value = url;
   const isShort = url.includes('is.gd');
   $('share-sub').textContent = isShort
@@ -556,30 +668,36 @@ function buildPage3(d) {
 
 function buildPage4(d, isClient) {
   const avista = fmtBRL(d.exito * 0.9);
-  const parcela = fmtBRL(d.exito / 8);
-  let opts = '';
-  if (d.ind > 0) {
-    opts += paymOpt('indenizacao','💰 Descontado da Indenização',`Desconto direto do valor a receber (R$ ${fmtBRL(d.ind)})`, isClient);
-  }
-  opts += paymOpt('avista',`💵 À vista — R$ ${avista}`,`10% de desconto sobre os honorários`,isClient);
-  opts += paymOpt('parcelado',`💳 8x no cartão — R$ ${parcela}/mês`,`Sem juros, valor total R$ ${fmtBRL(d.exito)}`,isClient);
-  opts += paymOpt('falar','💬 Quero falar com o escritório primeiro','Tirar dúvidas antes de definir',isClient);
-  return `<div class="pc" style="background:var(--navy)">
+  const cl = isClient ? '' : 'style="pointer-events:none"';
+  const oc = id => isClient ? `onclick="selectPay('${id}',this)"` : '';
+  const parcelasSelector = isClient ? `
+    <div class="parc-selector" id="parc-selector">
+      <span class="parc-lbl">Escolha o número de parcelas:</span>
+      <div class="parc-btns">
+        ${[1,2,3,4,5,6,7,8].map(n=>`<button class="parc-btn" onclick="setParcelas(${n},${d.exito});event.stopPropagation()">${n}x</button>`).join('')}
+      </div>
+      <div class="parc-valor" id="parc-valor"></div>
+    </div>` : '';
+  return `<div class="pc" style="background:var(--nd)">
     <div class="p-bar"><span class="p-bar-title">Forma de Pagamento</span><span class="p-bar-n">04</span></div>
     <div class="p4-body">
-      <p class="p4-sub">Escolha como prefere realizar o pagamento dos honorários de êxito:</p>
-      ${opts}
-      <p class="paym-hint">Selecione uma opção e avance para confirmar ›</p>
+      <p class="p4-sub">Como prefere pagar os honorários do escritório?</p>
+      <div class="paym-opt" id="paym-avista" ${oc('avista')} ${cl}>
+        <span class="po-lbl">💵 À vista</span>
+        <span class="po-val">10% de desconto · R$ ${avista}</span>
+      </div>
+      <div class="paym-opt" id="paym-parcelado" ${oc('parcelado')} ${cl}>
+        <span class="po-lbl">💳 Parcelado no cartão</span>
+        <span class="po-val">Em até 8x · toque e escolha o número de parcelas</span>
+        ${parcelasSelector}
+      </div>
+      <div class="paym-opt" id="paym-falar" ${oc('falar')} ${cl}>
+        <span class="po-lbl">💬 Falar com o escritório</span>
+        <span class="po-val">Prefiro conversar antes de decidir</span>
+      </div>
+      <p class="paym-hint">Selecione uma opção e avance ›</p>
     </div>
     <div class="p-ft"><span>SMA Advogados</span><span>advocaciasma.com.br</span></div>
-  </div>`;
-}
-
-function paymOpt(id, label, sub, isClient) {
-  const onclick = isClient ? `onclick="selectPay('${id}',this)"` : '';
-  return `<div class="paym-opt" id="paym-${id}" ${onclick}>
-    <span class="po-lbl">${label}</span>
-    <span class="po-val">${sub}</span>
   </div>`;
 }
 
@@ -679,26 +797,41 @@ function setupSwipe() {
 function selectPay(id, el) {
   document.querySelectorAll('.paym-opt').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
-  const labels = {
-    indenizacao: 'Descontado da indenização a receber',
-    avista: 'À vista com 10% de desconto',
-    parcelado: 'Parcelado em 8x no cartão',
-    falar: 'Quero falar com o escritório primeiro'
-  };
-  _selPay = {id, label: labels[id]};
-  // Update the selection display on the contact page
+  const parc = $('parc-selector');
+  if (parc) parc.style.display = id === 'parcelado' ? 'block' : 'none';
+  if (id !== 'parcelado') {
+    const labels = { avista: 'À vista com 10% de desconto', falar: 'Prefiro falar com o escritório primeiro' };
+    _selPay = {id, label: labels[id]};
+    const disp = $('sel-display');
+    if (disp) { disp.style.display='block'; disp.textContent='✓ '+labels[id]; }
+  } else {
+    _selPay = {id:'parcelado', label: null};
+    const disp = $('sel-display');
+    if (disp) { disp.style.display='block'; disp.textContent='💳 Escolha o número de parcelas acima'; }
+  }
+}
+
+function setParcelas(n, exito) {
+  const val = fmtBRL(exito / n);
+  document.querySelectorAll('.parc-btn').forEach(b => b.classList.remove('sel'));
+  document.querySelectorAll('.parc-btn').forEach(b => { if (b.textContent === n+'x') b.classList.add('sel'); });
+  $('parc-valor').textContent = n+'x de R$ '+val;
+  _selPay = {id:'parcelado', label:`Parcelado em ${n}x de R$ ${val} no cartão`};
   const disp = $('sel-display');
-  if (disp) { disp.style.display = 'block'; disp.textContent = '✓ ' + labels[id]; }
+  if (disp) { disp.style.display='block'; disp.textContent='✓ '+_selPay.label; }
 }
 
 function viComPagamento() {
   if (!_data) return;
   const {trat, nome} = _data;
   let msg;
-  if (_selPay && _selPay.id !== 'falar') {
-    msg = `Olá! Sou ${trat} ${nome}. Vi os valores do resultado do meu processo. Gostaria de realizar o pagamento dos honorários — ${_selPay.label}. Podemos alinhar os próximos passos?`;
-  } else if (_selPay && _selPay.id === 'falar') {
-    msg = `Olá! Sou ${trat} ${nome}. Vi os valores do resultado do meu processo. Gostaria de conversar antes de definir a forma de pagamento dos honorários.`;
+  if (_selPay?.id === 'avista') {
+    const val = fmtBRL(_data.exito * 0.9);
+    msg = `Olá! Sou ${trat} ${nome}. Vi os valores do resultado do meu processo. Gostaria de pagar os honorários à vista com desconto — R$ ${val}. Podemos alinhar os próximos passos?`;
+  } else if (_selPay?.id === 'parcelado' && _selPay.label) {
+    msg = `Olá! Sou ${trat} ${nome}. Vi os valores do resultado do meu processo. Gostaria de pagar os honorários ${_selPay.label}. Podemos alinhar os próximos passos?`;
+  } else if (_selPay?.id === 'falar') {
+    msg = `Olá! Sou ${trat} ${nome}. Vi os valores do resultado do meu processo. Gostaria de conversar antes de definir a forma de pagamento.`;
   } else {
     msg = `Olá! Sou ${trat} ${nome}. Vi os valores do resultado do meu processo. Podemos conversar sobre os próximos passos?`;
   }
