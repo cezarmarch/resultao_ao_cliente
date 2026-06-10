@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Folder de Resultado — SMA Advogados</title>
+<style>
+:root{--navy:#1a2744;--nd:#0d1525;--navy2:#243158;--teal:#2d8c8c;--teal2:#3aafaf;--gold:#c9a84c;--white:#f8f8f6;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:Georgia,'Times New Roman',serif;background:#0d1525;color:#f8f8f6;min-height:100vh;}
+
+/* === LOGO === */
+.lw{display:inline-flex;align-items:center;gap:10px;}
+.lg{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
+.lc{width:20px;height:20px;border-radius:50%;background:var(--teal2);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;font-family:Arial,sans-serif;color:white;}
+.lc-o{background:transparent;border:2px solid var(--teal2);}
+.ln .l1{display:block;font-family:Arial,sans-serif;font-weight:700;font-size:15px;letter-spacing:1px;color:white;}
+.ln .l2{display:block;font-family:Arial,sans-serif;font-weight:700;font-size:8px;letter-spacing:2px;color:rgba(255,255,255,0.4);}
+
+/* === FORM SCREEN === */
+#form-screen{display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:36px 16px 60px;}
+.fh{text-align:center;margin-bottom:28px;}
+.fh h1{font-size:21px;font-weight:400;letter-spacing:1px;margin:14px 0 5px;}
+.fh p{font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:1px;}
+.fcard{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px;width:100%;max-width:540px;}
+.fsec{margin-bottom:26px;}
+.fsec-title{font-family:Arial,sans-serif;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal2);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.1);}
+.fr{margin-bottom:12px;}
+.fr label{display:block;font-family:Arial,sans-serif;font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:.5px;margin-bottom:5px;}
+.fr input,.fr textarea,.fr select{width:100%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:10px 14px;color:white;font-family:Arial,sans-serif;font-size:13px;outline:none;transition:border-color .2s;}
+.fr input:focus,.fr textarea:focus,.fr select:focus{border-color:var(--teal2);}
+.fr textarea{resize:vertical;min-height:76px;line-height:1.5;}
+.fr select option{background:#1a2744;}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.fr2 .fr{margin-bottom:0;}
+.auto{font-family:Arial,sans-serif;font-size:9px;color:var(--teal2);font-style:italic;float:right;}
+.fr input.ac{border-color:rgba(58,175,175,0.4);background:rgba(58,175,175,0.06);}
+.opt-lbl{color:rgba(255,255,255,0.28);font-size:10px;}
+.cdisplay{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:14px 16px;margin-top:12px;}
+.crow{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.07);}
+.crow:last-child{border:none;}
+.crow.ctotal{background:rgba(58,175,175,0.1);margin:4px -16px -14px;padding:10px 16px;border-radius:0 0 10px 10px;}
+.clbl{font-family:Arial,sans-serif;font-size:11px;color:rgba(255,255,255,0.5);}
+.cval{font-family:Arial,sans-serif;font-size:13px;font-weight:700;color:var(--teal2);}
+.cval.gold{color:var(--gold);}
+.btn-gerar{width:100%;background:var(--teal);color:white;border:none;border-radius:10px;padding:16px;font-family:Arial,sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;margin-top:8px;transition:all .2s;}
+.btn-gerar:hover{background:var(--teal2);transform:translateY(-1px);}
+
+/* === SHARE MODAL === */
+#share-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:200;align-items:center;justify-content:center;padding:16px;}
+#share-modal.open{display:flex;}
+.sbox{background:#1a2744;border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:28px;width:100%;max-width:460px;}
+.sbox-title{font-family:Arial,sans-serif;font-size:17px;font-weight:700;color:white;margin-bottom:4px;}
+.sbox-sub{font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:22px;}
+.slbl{font-family:Arial,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--teal2);margin-bottom:8px;}
+.link-box{display:flex;gap:8px;margin-bottom:20px;}
+.link-input{flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:10px 12px;color:white;font-family:Arial,sans-serif;font-size:11px;outline:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.copy-btn{background:var(--teal);color:white;border:none;border-radius:8px;padding:10px 16px;font-family:Arial,sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:background .2s;}
+.copy-btn:hover{background:var(--teal2);}
+.copy-btn.copied{background:#27ae60;}
+.wa-share-btn{width:100%;background:#25D366;color:white;border:none;border-radius:10px;padding:14px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s;text-decoration:none;margin-bottom:8px;}
+.wa-share-btn:hover{background:#1ebe57;}
+.s-sec-btn{width:100%;background:transparent;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.55);border-radius:10px;padding:11px;font-family:Arial,sans-serif;font-size:12px;cursor:pointer;margin-top:4px;transition:all .2s;}
+.s-sec-btn:hover{border-color:rgba(255,255,255,0.4);color:white;}
+
+/* === RESULT SCREEN === */
+#result-screen{display:none;}
+.rtopbar{position:fixed;top:0;left:0;right:0;background:rgba(13,21,37,0.96);backdrop-filter:blur(8px);z-index:100;display:flex;align-items:center;justify-content:space-between;padding:10px 20px;border-bottom:1px solid rgba(255,255,255,0.1);}
+.rbtns{display:flex;gap:8px;}
+.rbtn{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:white;padding:7px 16px;border-radius:6px;font-family:Arial,sans-serif;font-size:11px;cursor:pointer;transition:background .2s;}
+.rbtn:hover{background:var(--teal);border-color:var(--teal);}
+.rbtn.green{background:#25D366;border-color:#25D366;}
+.rbtn.green:hover{background:#1ebe57;}
+
+/* Hero */
+.hero{min-height:100vh;background:linear-gradient(160deg,#0d1525 0%,#1a2744 55%,#0d2033 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:90px 24px 60px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-40%;left:-40%;width:180%;height:180%;background:radial-gradient(ellipse at 60% 40%,rgba(45,140,140,0.1) 0%,transparent 60%);pointer-events:none;}
+.h-eye{font-family:Arial,sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--teal2);margin-bottom:18px;}
+.h-badge{border-radius:100px;padding:10px 28px;font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:white;display:inline-block;margin-bottom:30px;}
+.h-title{font-size:clamp(32px,8vw,54px);font-weight:700;color:white;line-height:1.1;margin-bottom:8px;max-width:560px;}
+.h-title .gld{color:var(--gold);}
+.h-div{width:50px;height:3px;background:linear-gradient(90deg,var(--teal),var(--teal2));border-radius:2px;margin:22px auto;}
+.h-sub{font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:32px;letter-spacing:.5px;line-height:1.7;}
+.h-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:22px 36px;display:inline-block;}
+.h-card-accent{height:2px;margin:-22px -36px 16px;border-radius:16px 16px 0 0;}
+.hc-lbl{font-family:Arial,sans-serif;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:6px;}
+.hc-name{font-size:22px;font-weight:700;color:white;margin-bottom:4px;}
+.hc-proc{font-family:Arial,sans-serif;font-size:11px;color:var(--teal2);}
+
+/* Sections */
+.rsec{padding:64px 24px;}
+.rinner{max-width:600px;margin:0 auto;}
+.eyebrow{font-family:Arial,sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;display:block;}
+.stitle{font-size:24px;font-weight:700;line-height:1.2;margin-bottom:26px;}
+.rwhite{background:var(--white);}
+.rwhite .eyebrow{color:var(--teal);}
+.rwhite .stitle{color:var(--navy);}
+.rcream{background:#f0ede6;}
+.rcream .eyebrow{color:var(--teal);}
+.rcream .stitle{color:var(--navy);}
+
+/* Victory banner */
+.vbanner{border-radius:14px;padding:26px 24px;text-align:center;margin-bottom:28px;}
+.vb-icon{font-size:38px;margin-bottom:10px;display:block;}
+.vb-title{font-size:20px;font-weight:700;color:white;margin-bottom:8px;}
+.vb-desc{font-family:Arial,sans-serif;font-size:13px;color:rgba(255,255,255,0.82);line-height:1.65;}
+
+/* Financial table */
+.ftable{background:white;border:1px solid #e0ddd6;border-radius:14px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,0.08);}
+.frow{display:flex;justify-content:space-between;align-items:center;padding:13px 20px;border-bottom:1px solid #f0ede6;}
+.frow:last-child{border:none;}
+.flbl{font-family:Arial,sans-serif;font-size:12.5px;color:#666;}
+.fval{font-family:Arial,sans-serif;font-size:13px;font-weight:600;color:var(--navy);}
+.frow.fproveito{background:#f0fbfb;border-bottom:2px solid #e0f0f0;}
+.frow.fproveito .flbl{color:var(--navy);font-weight:700;font-size:13px;}
+.frow.fproveito .fval{color:var(--teal);font-size:16px;}
+.frow.fexito{background:var(--navy);}
+.frow.fexito .flbl{color:rgba(255,255,255,0.65);font-size:12px;}
+.frow.fexito .fval{color:white;font-size:18px;}
+.frow.fsucumb{background:rgba(201,168,76,0.08);}
+.frow.fsucumb .flbl{color:#777;font-size:12px;}
+.frow.fsucumb .fval{color:#9a7a28;}
+.fnote{font-family:Arial,sans-serif;font-size:11.5px;color:#777;line-height:1.7;margin-top:18px;}
+.fnote strong{color:var(--navy);}
+
+/* CTA section */
+.ctsec{background:var(--navy2);padding:64px 24px;text-align:center;}
+.ctinner{max-width:480px;margin:0 auto;}
+.ctsec .eyebrow{color:var(--teal2);}
+.ctsec .stitle{color:white;margin-bottom:12px;}
+.ctsub{font-family:Arial,sans-serif;font-size:13px;color:rgba(255,255,255,0.45);line-height:1.65;margin-bottom:28px;}
+
+/* "Vi os valores" button — client CTA */
+.vi-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#25D366;color:white;border:none;text-decoration:none;border-radius:14px;padding:18px 36px;font-family:Arial,sans-serif;font-size:15px;font-weight:700;letter-spacing:.5px;cursor:pointer;transition:all .2s;box-shadow:0 4px 24px rgba(37,211,102,0.35);width:100%;max-width:400px;}
+.vi-btn:hover{background:#1ebe57;transform:translateY(-2px);box-shadow:0 6px 28px rgba(37,211,102,0.45);}
+.vi-btn-sub{font-family:Arial,sans-serif;font-size:11px;color:rgba(255,255,255,0.45);margin-top:14px;line-height:1.6;}
+
+/* Floating "Vi os valores" button */
+.float-vi{position:fixed;bottom:24px;right:20px;z-index:90;background:#25D366;color:white;border:none;border-radius:100px;padding:13px 20px;font-family:Arial,sans-serif;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(37,211,102,0.4);display:none;align-items:center;gap:8px;transition:all .2s;}
+.float-vi:hover{background:#1ebe57;transform:translateY(-2px);}
+.float-vi.show{display:flex;}
+
+.ctinfo{font-family:Arial,sans-serif;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:.5px;line-height:1.8;margin-top:20px;}
+.rfooter{background:#0d1525;padding:24px;text-align:center;border-top:1px solid rgba(255,255,255,0.05);}
+.rfooter p{font-family:Arial,sans-serif;font-size:10px;color:rgba(255,255,255,0.18);letter-spacing:.8px;line-height:1.8;}
+
+@media(max-width:480px){
+  .fr2{grid-template-columns:1fr;}
+  .h-card{padding:18px 20px;}
+  .h-card-accent{margin:-18px -20px 14px;}
+  .float-vi{bottom:16px;right:12px;font-size:11px;padding:11px 16px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ======== FORM SCREEN ======== -->
+<div id="form-screen">
+  <div class="fh">
+    <div class="lw">
+      <div class="lg"><div class="lc">S</div><div class="lc">M</div><div class="lc">A</div><div class="lc lc-o"></div></div>
+      <div class="ln"><span class="l1">SIMÕES MARCH</span><span class="l2">Advogados</span></div>
+    </div>
+    <h1>Gerador de Folder de Resultado</h1>
+    <p>Preencha os dados e gere o link para enviar ao cliente</p>
+  </div>
+
+  <div class="fcard">
+
+    <div class="fsec">
+      <div class="fsec-title">01 · Dados do Cliente</div>
+      <div class="fr2">
+        <div class="fr"><label>Tratamento</label>
+          <select id="f-trat"><option>Sr.</option><option>Sra.</option><option>Dr.</option><option>Dra.</option></select>
+        </div>
+        <div class="fr"><label>Nome completo</label>
+          <input type="text" id="f-nome" placeholder="Carlos Emílio Santos"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="fsec">
+      <div class="fsec-title">02 · Dados do Processo</div>
+      <div class="fr"><label>Número do processo <span class="opt-lbl">— opcional</span></label>
+        <input type="text" id="f-processo" placeholder="0100566-86.2023.5.01.0069"/>
+      </div>
+      <div class="fr"><label>Vara / Juízo <span class="opt-lbl">— opcional</span></label>
+        <input type="text" id="f-vara" placeholder="69ª Vara do Trabalho de Niterói – RJ"/>
+      </div>
+    </div>
+
+    <div class="fsec">
+      <div class="fsec-title">03 · Resultado Obtido</div>
+      <div class="fr"><label>Tipo de resultado</label>
+        <select id="f-tipo">
+          <option value="sentenca">Sentença Procedente</option>
+          <option value="acordo_ext">Acordo Extrajudicial</option>
+          <option value="acordo_jud">Acordo Judicial</option>
+          <option value="exclusao">Exclusão do Polo Passivo</option>
+          <option value="recurso">Recurso Provido</option>
+          <option value="liminar">Liminar / Tutela Concedida</option>
+          <option value="contrato">Contrato Anulado</option>
+          <option value="negociacao">Negociação Favorável</option>
+          <option value="outro">Outro</option>
+        </select>
+      </div>
+      <div class="fr"><label>Descrição do resultado <span class="opt-lbl">— aparece no folder</span></label>
+        <textarea id="f-desc" placeholder="Ex: Obtivemos sentença favorável reconhecendo a abusividade das cláusulas contratuais, determinando a restituição dos valores cobrados indevidamente e a anulação do contrato de empréstimo..."></textarea>
+      </div>
+    </div>
+
+    <div class="fsec">
+      <div class="fsec-title">04 · Valores Financeiros</div>
+      <div class="fr"><label>Valor de Indenização <span class="opt-lbl">— opcional</span></label>
+        <input type="text" id="f-ind" placeholder="R$ 0,00" oninput="fmtInput(this);calcular()"/>
+      </div>
+      <div class="fr"><label>Valor de contrato anulado / cancelado <span class="opt-lbl">— opcional</span></label>
+        <input type="text" id="f-cont" placeholder="R$ 0,00" oninput="fmtInput(this);calcular()"/>
+      </div>
+      <div class="fr"><label>Proveito Econômico Total <span class="auto">preenchido automaticamente</span></label>
+        <input type="text" id="f-prov" placeholder="R$ 0,00" class="ac" oninput="fmtInput(this);calcExito()"/>
+      </div>
+      <div class="fr2">
+        <div class="fr"><label>% Honorários de Êxito</label>
+          <input type="number" id="f-pct" placeholder="Ex: 20" min="0" max="100" step="0.5" oninput="calcExito()"/>
+        </div>
+        <div class="fr"><label>Valor Honorários de Êxito <span class="auto">auto</span></label>
+          <input type="text" id="f-exito" placeholder="R$ 0,00" class="ac" oninput="fmtInput(this);updPreview()"/>
+        </div>
+      </div>
+      <div class="fr"><label>Honorários Sucumbenciais <span class="opt-lbl">— pagos pela parte contrária, opcional</span></label>
+        <input type="text" id="f-sucumb" placeholder="R$ 0,00" oninput="fmtInput(this);updPreview()"/>
+      </div>
+
+      <div class="cdisplay">
+        <div class="crow" id="pv-ind" style="display:none">
+          <span class="clbl">Valor de Indenização</span><span class="cval" id="pv-ind-v">—</span>
+        </div>
+        <div class="crow" id="pv-cont" style="display:none">
+          <span class="clbl">Valor de contrato anulado</span><span class="cval" id="pv-cont-v">—</span>
+        </div>
+        <div class="crow">
+          <span class="clbl">Proveito Econômico</span><span class="cval" id="pv-prov">—</span>
+        </div>
+        <div class="crow">
+          <span class="clbl">Honorários de Êxito</span><span class="cval" id="pv-exito">—</span>
+        </div>
+        <div class="crow ctotal" id="pv-sucumb" style="display:none">
+          <span class="clbl">Honorários Sucumbenciais</span><span class="cval gold" id="pv-sucumb-v">—</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-gerar" onclick="gerarFolder()">⚡ Gerar Link para o Cliente</button>
+  </div>
+</div>
+
+<!-- ======== SHARE MODAL ======== -->
+<div id="share-modal">
+  <div class="sbox">
+    <div class="sbox-title">✅ Link gerado!</div>
+    <div class="sbox-sub">Copie o link e envie pelo WhatsApp para o cliente</div>
+    <div class="slbl">🔗 Link do folder</div>
+    <div class="link-box">
+      <input class="link-input" id="share-link-input" readonly/>
+      <button class="copy-btn" id="copy-btn" onclick="copiarLink()">Copiar</button>
+    </div>
+    <a class="wa-share-btn" id="wa-share-btn" href="#" target="_blank">
+      <span>📲</span> Enviar pelo WhatsApp do cliente
+    </a>
+    <button class="s-sec-btn" onclick="verFolder()">👁 Visualizar folder primeiro</button>
+    <button class="s-sec-btn" onclick="fecharModal()">← Voltar e editar</button>
+  </div>
+</div>
+
+<!-- ======== RESULT SCREEN ======== -->
+<div id="result-screen">
+
+  <div class="rtopbar">
+    <div class="lw">
+      <div class="lg"><div class="lc" style="width:16px;height:16px;font-size:7px">S</div><div class="lc" style="width:16px;height:16px;font-size:7px">M</div><div class="lc" style="width:16px;height:16px;font-size:7px">A</div><div class="lc lc-o" style="width:16px;height:16px"></div></div>
+      <div class="ln"><span class="l1" style="font-size:12px">SIMÕES MARCH</span><span class="l2" style="font-size:7px">Advogados</span></div>
+    </div>
+    <div class="rbtns" id="topbar-lawyer-btns">
+      <button class="rbtn" onclick="voltarForm()">← Editar</button>
+      <button class="rbtn green" onclick="abrirModal()">📤 Compartilhar</button>
+    </div>
+    <div class="rbtns" id="topbar-client-btns" style="display:none">
+      <button class="rbtn green" onclick="viOsValores()">✓ Vi os valores — Falar com o escritório</button>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="h-eye" id="r-eye">SMA Advogados</div>
+    <div class="h-badge" id="r-badge">✓ Resultado Obtido</div>
+    <h1 class="h-title" id="r-title">Resultado <span class="gld">favorável</span></h1>
+    <div class="h-div"></div>
+    <p class="h-sub" id="r-sub">—</p>
+    <div class="h-card">
+      <div class="h-card-accent" id="r-accent"></div>
+      <div class="hc-lbl">Cliente</div>
+      <div class="hc-name" id="r-nome">—</div>
+      <div class="hc-proc" id="r-proc-short">—</div>
+    </div>
+  </section>
+
+  <section class="rsec rwhite">
+    <div class="rinner">
+      <span class="eyebrow">O Resultado</span>
+      <h2 class="stitle">O que alcançamos para você</h2>
+      <div class="vbanner" id="r-banner">
+        <span class="vb-icon" id="r-bicon">✅</span>
+        <div class="vb-title" id="r-btitle">—</div>
+        <div class="vb-desc" id="r-bdesc">—</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="rsec rcream">
+    <div class="rinner">
+      <span class="eyebrow">Detalhamento Financeiro</span>
+      <h2 class="stitle">Proveito econômico e honorários</h2>
+      <div class="ftable" id="r-ftable"></div>
+      <p class="fnote" id="r-fnote"></p>
+    </div>
+  </section>
+
+  <section class="ctsec">
+    <div class="ctinner">
+      <span class="eyebrow" style="display:block;margin-bottom:10px">Próximos Passos</span>
+      <h2 class="stitle" id="cta-title">Próximos passos</h2>
+      <p class="ctsub" id="cta-sub">—</p>
+
+      <!-- Client CTA -->
+      <div id="cta-client" style="display:none">
+        <button class="vi-btn" onclick="viOsValores()">
+          <span>✓</span> Confirmar que vi os valores
+        </button>
+        <p class="vi-btn-sub">Ao clicar, você será direcionado ao WhatsApp do escritório<br>para confirmação e alinhamento dos próximos passos.</p>
+      </div>
+
+      <!-- Lawyer preview CTA -->
+      <div id="cta-lawyer">
+        <a href="https://wa.me/5521999675879" class="vi-btn" style="max-width:320px" target="_blank">
+          <span>📲</span> Falar pelo WhatsApp
+        </a>
+      </div>
+
+      <div class="ctinfo">
+        Rua Mem de Sá, 34, sala 1104 — Icaraí, Niterói<br>
+        +55 21 99967-5879 · www.advocaciasma.com.br
+      </div>
+    </div>
+  </section>
+
+  <footer class="rfooter">
+    <p>Simões March Advogados © 2026 · Cezar Eduardo March Farias Segundo — OAB/RJ 198.432</p>
+  </footer>
+</div>
+
+<!-- Floating "vi os valores" button (client view, appears after scrolling) -->
+<button class="float-vi" id="float-vi" onclick="viOsValores()">
+  <span>✓</span> Vi os valores — Falar com o escritório
+</button>
+
+<script>
+const CFG = {
+  sentenca:   {badge:'⚖️ Sentença Procedente',   bg:'linear-gradient(135deg,#1a5a35,#27ae60)',  shadow:'rgba(39,174,96,.35)', title:'Sentença <span class="gld">favorável</span> obtida',     short:'Sentença procedente',      bicon:'⚖️', bbg:'linear-gradient(135deg,#0f3d22,#27ae60)',  btitle:'Sentença procedente em seu favor',       accent:'#27ae60'},
+  acordo_ext: {badge:'🤝 Acordo Extrajudicial',   bg:'linear-gradient(135deg,#1a3a5a,#2980b9)',  shadow:'rgba(41,128,185,.35)',title:'Acordo <span class="gld">extrajudicial</span> firmado',    short:'Acordo extrajudicial',     bicon:'🤝', bbg:'linear-gradient(135deg,#0d2a3e,#2980b9)',  btitle:'Acordo extrajudicial favorável firmado', accent:'#2980b9'},
+  acordo_jud: {badge:'✓ Acordo Judicial',         bg:'linear-gradient(135deg,#1a3a5a,#3498db)',  shadow:'rgba(52,152,219,.35)',title:'Acordo <span class="gld">judicial</span> homologado',     short:'Acordo judicial',          bicon:'✅', bbg:'linear-gradient(135deg,#0d2a3e,#3498db)',  btitle:'Acordo judicial homologado com êxito',   accent:'#3498db'},
+  exclusao:   {badge:'🛡️ Exclusão do Polo Passivo',bg:'linear-gradient(135deg,#1a5a35,#27ae60)', shadow:'rgba(39,174,96,.35)', title:'Defesa <span class="gld">vitoriosa</span>',              short:'Exclusão do polo passivo', bicon:'🛡️',bbg:'linear-gradient(135deg,#0f3d22,#1a6e3c)', btitle:'Exclusão total do polo passivo',         accent:'#27ae60'},
+  recurso:    {badge:'📜 Recurso Provido',         bg:'linear-gradient(135deg,#5a3a1a,#c9a84c)',  shadow:'rgba(201,168,76,.35)',title:'Recurso <span class="gld">provido</span> em seu favor',   short:'Recurso provido',          bicon:'📜', bbg:'linear-gradient(135deg,#3d2a0a,#c9a84c)',  btitle:'Recurso provido — decisão reformada',    accent:'#c9a84c'},
+  liminar:    {badge:'⚡ Liminar Concedida',        bg:'linear-gradient(135deg,#3a1a5a,#9b59b6)',  shadow:'rgba(155,89,182,.35)',title:'Tutela de urgência <span class="gld">concedida</span>',  short:'Liminar concedida',        bicon:'⚡', bbg:'linear-gradient(135deg,#2a0d3e,#9b59b6)',  btitle:'Liminar concedida — proteção imediata',  accent:'#9b59b6'},
+  contrato:   {badge:'✓ Contrato Anulado',         bg:'linear-gradient(135deg,#1a5a35,#27ae60)',  shadow:'rgba(39,174,96,.35)', title:'Contrato <span class="gld">anulado</span> com êxito',     short:'Contrato anulado',         bicon:'📋', bbg:'linear-gradient(135deg,#0f3d22,#27ae60)',  btitle:'Contrato anulado — obrigações extintas', accent:'#27ae60'},
+  negociacao: {badge:'🤝 Negociação Favorável',    bg:'linear-gradient(135deg,#1a2744,#3aafaf)',  shadow:'rgba(58,175,175,.35)',title:'Negociação <span class="gld">encerrada</span> com êxito', short:'Negociação favorável',     bicon:'🤝', bbg:'linear-gradient(135deg,#0d2033,#2d8c8c)',  btitle:'Negociação concluída favoravelmente',    accent:'#3aafaf'},
+  outro:      {badge:'✓ Resultado Obtido',         bg:'linear-gradient(135deg,#1a2744,#3aafaf)',  shadow:'rgba(58,175,175,.25)',title:'Resultado <span class="gld">favorável</span> alcançado',  short:'Resultado obtido',         bicon:'✅', bbg:'linear-gradient(135deg,#0d2033,#2d8c8c)',  btitle:'Resultado favorável alcançado',          accent:'#3aafaf'},
+};
+
+let _sharedData = null;
+let _isClient = false;
+
+// === LOAD: detect URL params ===
+window.addEventListener('load', () => {
+  const p = new URLSearchParams(window.location.search);
+  const d = p.get('d');
+  if (d) {
+    const data = decodeData(d);
+    if (data) {
+      _sharedData = data;
+      _isClient = true;
+      renderResult(data, true);
+      return;
+    }
+  }
+  document.getElementById('form-screen').style.display = 'flex';
+});
+
+// === ENCODE / DECODE ===
+function encodeData(obj) {
+  try {
+    const json = JSON.stringify(obj);
+    const bytes = new TextEncoder().encode(json);
+    let bin = '';
+    bytes.forEach(b => bin += String.fromCharCode(b));
+    return btoa(bin);
+  } catch { return ''; }
+}
+
+function decodeData(str) {
+  try {
+    const bin = atob(str);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return JSON.parse(new TextDecoder().decode(bytes));
+  } catch { return null; }
+}
+
+// === UTILS ===
+function parseBRL(s) { if (!s) return 0; return parseFloat(s.replace(/[R$\s.]/g,'').replace(',','.')) || 0; }
+function fmtBRL(v) { return v.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2}); }
+function fmtInput(el) { const d = el.value.replace(/\D/g,''); if (!d){el.value='';return;} el.value = fmtBRL(parseInt(d)/100); }
+function $(id) { return document.getElementById(id); }
+
+// === FORM CALCS ===
+function calcular() {
+  const ind = parseBRL($('f-ind').value), cont = parseBRL($('f-cont').value);
+  if (ind + cont > 0) $('f-prov').value = fmtBRL(ind + cont);
+  calcExito();
+}
+function calcExito() {
+  const prov = parseBRL($('f-prov').value), pct = parseFloat($('f-pct').value) || 0;
+  if (prov > 0 && pct > 0) $('f-exito').value = fmtBRL(prov * pct / 100);
+  updPreview();
+}
+function updPreview() {
+  const ind = parseBRL($('f-ind').value), cont = parseBRL($('f-cont').value);
+  const prov = parseBRL($('f-prov').value), exito = parseBRL($('f-exito').value);
+  const pct = parseFloat($('f-pct').value) || 0, sucumb = parseBRL($('f-sucumb').value);
+  $('pv-ind').style.display = ind > 0 ? 'flex' : 'none';
+  if (ind > 0) $('pv-ind-v').textContent = 'R$ ' + fmtBRL(ind);
+  $('pv-cont').style.display = cont > 0 ? 'flex' : 'none';
+  if (cont > 0) $('pv-cont-v').textContent = 'R$ ' + fmtBRL(cont);
+  $('pv-prov').textContent = prov > 0 ? 'R$ ' + fmtBRL(prov) : '—';
+  $('pv-exito').textContent = exito > 0 ? 'R$ ' + fmtBRL(exito) + (pct > 0 ? ' (' + pct + '%)' : '') : '—';
+  $('pv-sucumb').style.display = sucumb > 0 ? 'flex' : 'none';
+  if (sucumb > 0) $('pv-sucumb-v').textContent = 'R$ ' + fmtBRL(sucumb);
+}
+
+// === GERAR ===
+function gerarFolder() {
+  const trat = $('f-trat').value, nome = $('f-nome').value.trim();
+  const processo = $('f-processo').value.trim(), vara = $('f-vara').value.trim();
+  const tipo = $('f-tipo').value, desc = $('f-desc').value.trim();
+  const ind = parseBRL($('f-ind').value), cont = parseBRL($('f-cont').value);
+  const prov = parseBRL($('f-prov').value), pct = parseFloat($('f-pct').value) || 0;
+  const exito = parseBRL($('f-exito').value), sucumb = parseBRL($('f-sucumb').value);
+
+  if (!nome) { alert('Preencha o nome do cliente.'); return; }
+  if (!prov && !exito) { alert('Preencha ao menos o Proveito Econômico ou os Honorários de Êxito.'); return; }
+
+  _sharedData = {trat, nome, processo, vara, tipo, desc, ind, cont, prov, pct, exito, sucumb};
+  _isClient = false;
+
+  // Build shareable URL
+  const encoded = encodeData(_sharedData);
+  const base = window.location.href.split('?')[0];
+  const url = base + '?d=' + encoded;
+
+  $('share-link-input').value = url;
+
+  // WhatsApp message to send to client (lawyer sends)
+  const msg = `Olá, ${trat} ${nome}! Segue o link com o detalhamento do resultado do seu processo: ${url}`;
+  $('wa-share-btn').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
+
+  $('share-modal').classList.add('open');
+}
+
+function copiarLink() {
+  const input = $('share-link-input');
+  input.select();
+  navigator.clipboard.writeText(input.value).catch(() => {});
+  const btn = $('copy-btn');
+  btn.textContent = '✓ Copiado!';
+  btn.classList.add('copied');
+  setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2500);
+}
+
+function abrirModal() { $('share-modal').classList.add('open'); }
+function fecharModal() { $('share-modal').classList.remove('open'); }
+
+function verFolder() {
+  fecharModal();
+  renderResult(_sharedData, false);
+}
+
+function voltarForm() {
+  $('result-screen').style.display = 'none';
+  $('form-screen').style.display = 'flex';
+  $('float-vi').classList.remove('show');
+  window.scrollTo(0,0);
+}
+
+// === RENDER RESULT ===
+function renderResult(d, isClient) {
+  const c = CFG[d.tipo] || CFG.outro;
+
+  $('r-eye').textContent = d.processo ? 'Processo nº ' + d.processo : 'SMA Advogados';
+  const bdg = $('r-badge');
+  bdg.textContent = c.badge; bdg.style.background = c.bg; bdg.style.boxShadow = '0 4px 20px ' + c.shadow;
+  $('r-title').innerHTML = c.title;
+  $('r-sub').innerHTML = (d.vara ? d.vara + '<br>' : '') + c.short;
+  $('r-nome').textContent = d.trat + ' ' + d.nome;
+  $('r-proc-short').textContent = c.short;
+  $('r-accent').style.background = c.accent;
+
+  const ban = $('r-banner');
+  ban.style.background = c.bbg;
+  $('r-bicon').textContent = c.bicon;
+  $('r-btitle').textContent = c.btitle;
+  $('r-bdesc').textContent = d.desc || 'Resultado obtido com êxito por meio de nossa atuação técnica e estratégica.';
+
+  // Financial table
+  let html = '';
+  if (d.ind > 0) html += frow('Valor de Indenização', 'R$ ' + fmtBRL(d.ind), '');
+  if (d.cont > 0) html += frow('Valor de contrato anulado', 'R$ ' + fmtBRL(d.cont), '');
+  if (d.prov > 0) html += frow('Proveito Econômico', 'R$ ' + fmtBRL(d.prov), 'fproveito');
+  if (d.exito > 0) {
+    const lbl = 'Honorários de Êxito' + (d.pct > 0 ? ' (' + d.pct + '% s/ proveito econômico)' : '');
+    html += frow(lbl, 'R$ ' + fmtBRL(d.exito), 'fexito');
+  }
+  if (d.sucumb > 0) {
+    html += `<div class="frow fsucumb"><span class="flbl">Honorários Sucumbenciais <span style="font-size:10px;font-weight:400">(pagos pela parte contrária)</span></span><span class="fval">R$ ${fmtBRL(d.sucumb)}</span></div>`;
+  }
+  $('r-ftable').innerHTML = html;
+
+  let note = '';
+  if (d.prov > 0 && d.exito > 0) {
+    note = `Os honorários de êxito incidem sobre o <strong>proveito econômico total (R$ ${fmtBRL(d.prov)})</strong>, correspondente ao conjunto de benefícios financeiros obtidos.`;
+    if (d.sucumb > 0) note += ` Os honorários sucumbenciais (<strong>R$ ${fmtBRL(d.sucumb)}</strong>) são arbitrados pelo juízo e pagos pela parte contrária — não integram o valor devido pelo cliente.`;
+  }
+  $('r-fnote').innerHTML = note;
+
+  // Topbar & CTA based on view
+  if (isClient) {
+    $('topbar-lawyer-btns').style.display = 'none';
+    $('topbar-client-btns').style.display = 'flex';
+    $('cta-client').style.display = 'block';
+    $('cta-lawyer').style.display = 'none';
+    $('cta-title').textContent = 'Confirme que viu os valores';
+    $('cta-sub').textContent = 'Se os valores estão corretos, clique no botão abaixo para falar diretamente com o escritório e alinhar o pagamento dos honorários e os próximos passos.';
+    // Show floating button after user scrolls past hero
+    setTimeout(() => $('float-vi').classList.add('show'), 3500);
+  } else {
+    $('topbar-lawyer-btns').style.display = 'flex';
+    $('topbar-client-btns').style.display = 'none';
+    $('cta-client').style.display = 'none';
+    $('cta-lawyer').style.display = 'block';
+    $('cta-title').textContent = 'Próximos passos';
+    $('cta-sub').textContent = 'Estamos à disposição para esclarecer qualquer dúvida e combinar o pagamento dos honorários de êxito.';
+    $('float-vi').classList.remove('show');
+  }
+
+  $('form-screen').style.display = 'none';
+  $('result-screen').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+function frow(label, val, cls) {
+  return `<div class="frow ${cls}"><span class="flbl">${label}</span><span class="fval">${val}</span></div>`;
+}
+
+// === "VI OS VALORES" — client action ===
+function viOsValores() {
+  if (!_sharedData) return;
+  const {trat, nome} = _sharedData;
+  const msg = `Olá! Sou ${trat} ${nome}. Acabei de visualizar o folder com o resultado do processo e os honorários apresentados. Podemos conversar sobre os próximos passos?`;
+  window.open('https://wa.me/5521999675879?text=' + encodeURIComponent(msg), '_blank');
+}
+
+// Floating button: show after scrolling past hero
+window.addEventListener('scroll', () => {
+  if (!_isClient) return;
+  const heroH = document.querySelector('.hero')?.offsetHeight || 600;
+  if (window.scrollY > heroH * 0.5) $('float-vi').classList.add('show');
+});
+</script>
+</body>
+</html>
