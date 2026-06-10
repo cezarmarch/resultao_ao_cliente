@@ -607,8 +607,9 @@ function buildDots() {
 
 function goTo(n) {
   if (n === _curPage || n < 0 || n >= _totalPages) return;
-  $(`fp-${_curPage}`).className = 'fp exit';
-  setTimeout(() => { const el=$(`fp-${_curPage}`); if(el) el.className='fp'; }, 700);
+  const prev = _curPage;
+  $(`fp-${prev}`).className = 'fp exit';
+  setTimeout(() => { const el=$(`fp-${prev}`); if(el) el.className='fp'; }, 700);
   _curPage = n;
   $(`fp-${_curPage}`).className = 'fp active';
   document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('active', i===_curPage));
