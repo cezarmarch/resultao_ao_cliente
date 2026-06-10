@@ -294,14 +294,17 @@ body{font-family:Georgia,'Times New Roman',serif;background:#0d1525;color:#f8f8f
 <div id="share-modal">
   <div class="sbox">
     <div class="sbox-title">✅ Link gerado!</div>
-    <div class="sbox-sub">Copie o link e envie pelo WhatsApp para o cliente</div>
+    <div class="sbox-sub" id="share-sub">Gerando link curto...</div>
     <div class="slbl">🔗 Link do folder</div>
     <div class="link-box">
       <input class="link-input" id="share-link-input" readonly/>
       <button class="copy-btn" id="copy-btn" onclick="copiarLink()">Copiar</button>
     </div>
-    <a class="wa-share-btn" id="wa-share-btn" href="#" target="_blank">
-      <span>📲</span> Enviar link pelo WhatsApp do cliente
+    <button class="wa-share-btn" id="copy-msg-btn" onclick="copiarMensagem()">
+      <span>📋</span> Copiar mensagem completa para colar no nicochat
+    </button>
+    <a class="s-sec-btn" id="wa-share-btn" href="#" target="_blank" style="text-align:center;display:block;text-decoration:none;">
+      📲 Abrir no WhatsApp diretamente
     </a>
     <button class="s-sec-btn" onclick="verFolder()">👁 Visualizar folder primeiro</button>
     <button class="s-sec-btn" onclick="fecharModal()">← Voltar e editar</button>
@@ -456,7 +459,11 @@ async function gerarFolder() {
   btn.textContent = '⚡ Gerar Link para o Cliente'; btn.disabled = false;
 
   $('share-link-input').value = url;
-  const msg = `Olá, ${trat} ${nome}! Segue o link com o detalhamento do resultado do seu processo: ${url}`;
+  const isShort = url.includes('is.gd');
+  $('share-sub').textContent = isShort
+    ? '✓ Link encurtado — cole o link ou a mensagem no nicochat'
+    : 'Cole o link ou a mensagem no nicochat';
+  const msg = `Olá, ${trat} ${nome}! Preparamos um folder com o resultado do seu processo. Acesse pelo link abaixo:\n\n${url}`;
   $('wa-share-btn').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
   $('share-modal').classList.add('open');
 }
@@ -465,6 +472,14 @@ function copiarLink() {
   navigator.clipboard.writeText($('share-link-input').value).catch(()=>{});
   const b=$('copy-btn'); b.textContent='✓ Copiado!'; b.classList.add('copied');
   setTimeout(()=>{b.textContent='Copiar';b.classList.remove('copied');},2500);
+}
+function copiarMensagem() {
+  if (!_data) return;
+  const url = $('share-link-input').value;
+  const msg = `Olá, ${_data.trat} ${_data.nome}! Preparamos um folder com o resultado do seu processo. Acesse pelo link abaixo:\n\n${url}`;
+  navigator.clipboard.writeText(msg).catch(()=>{});
+  const b=$('copy-msg-btn'); b.innerHTML='<span>✓</span> Mensagem copiada!';
+  setTimeout(()=>{ b.innerHTML='<span>📋</span> Copiar mensagem completa para colar no nicochat'; },2500);
 }
 function abrirModal() { $('share-modal').classList.add('open'); }
 function fecharModal() { $('share-modal').classList.remove('open'); }
