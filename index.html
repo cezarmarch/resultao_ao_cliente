@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Resultado do Processo — SMA Advogados</title>
+<meta property="og:title" content="SMA Advogados — Resultado do Processo"/>
+<meta property="og:description" content="Seu escritório preparou um folder com o resultado do seu processo. Toque para visualizar."/>
+<meta property="og:type" content="website"/>
+<meta property="og:image" content="https://cezarmarch.github.io/resultao_ao_cliente/S%C3%B3cios.jpg"/>
+<meta property="og:site_name" content="Simões March Advogados"/>
+<meta name="theme-color" content="#1a2744"/>
+<meta name="twitter:card" content="summary_large_image"/>
 <style>
 :root{--navy:#1a2744;--nd:#0d1525;--navy2:#243158;--teal:#2d8c8c;--teal2:#3aafaf;--gold:#c9a84c;--white:#f8f8f6;}
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -46,6 +53,8 @@ body{font-family:Georgia,'Times New Roman',serif;background:#0d1525;color:#f8f8f
 .cval.gold{color:var(--gold);}
 .btn-gerar{width:100%;background:var(--teal);color:white;border:none;border-radius:10px;padding:16px;font-family:Arial,sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;margin-top:8px;transition:all .2s;}
 .btn-gerar:hover{background:var(--teal2);transform:translateY(-1px);}
+.btn-gerar:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+
 
 /* === SHARE MODAL === */
 #share-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:200;align-items:center;justify-content:center;padding:16px;}
@@ -192,6 +201,7 @@ body{font-family:Georgia,'Times New Roman',serif;background:#0d1525;color:#f8f8f
   </div>
 
   <div class="fcard">
+
     <div class="fsec">
       <div class="fsec-title">01 · Dados do Cliente</div>
       <div class="fr2">
@@ -360,16 +370,19 @@ window.addEventListener('load', () => {
   document.getElementById('form-screen').style.display = 'flex';
 });
 
+/* ===================== LZSTRING (compressão de URL) ===================== */
+var LZString=function(){var f=String.fromCharCode,keyStrUriSafe="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-$",baseReverseDic={};function getBaseValue(alphabet,character){if(!baseReverseDic[alphabet]){baseReverseDic[alphabet]={};for(var i=0;i<alphabet.length;i++)baseReverseDic[alphabet][alphabet.charAt(i)]=i;}return baseReverseDic[alphabet][character];}var LZString={compressToEncodedURIComponent:function(input){if(input==null)return"";return LZString._compress(input,6,function(a){return keyStrUriSafe.charAt(a)});},decompressFromEncodedURIComponent:function(input){if(input==null)return"";if(input=="")return null;input=input.replace(/ /g,"+");return LZString._decompress(input.length,32,function(index){return getBaseValue(keyStrUriSafe,input.charAt(index));});},_compress:function(uncompressed,bitsPerChar,getCharFromInt){if(uncompressed==null)return"";var i,value,context_dictionary={},context_dictionaryToCreate={},context_c="",context_wc="",context_w="",context_enlargeIn=2,context_dictSize=3,context_numBits=2,context_data=[],context_data_val=0,context_data_position=0,ii;for(ii=0;ii<uncompressed.length;ii+=1){context_c=uncompressed.charAt(ii);if(!Object.prototype.hasOwnProperty.call(context_dictionary,context_c)){context_dictionary[context_c]=context_dictSize++;context_dictionaryToCreate[context_c]=true;}context_wc=context_w+context_c;if(Object.prototype.hasOwnProperty.call(context_dictionary,context_wc)){context_w=context_wc;}else{if(Object.prototype.hasOwnProperty.call(context_dictionaryToCreate,context_w)){if(context_w.charCodeAt(0)<256){for(i=0;i<context_numBits;i++){context_data_val=(context_data_val<<1);if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}}value=context_w.charCodeAt(0);for(i=0;i<8;i++){context_data_val=(context_data_val<<1)|(value&1);if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}value=value>>1;}}else{value=1;for(i=0;i<context_numBits;i++){context_data_val=(context_data_val<<1)|value;if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}value=0;}value=context_w.charCodeAt(0);for(i=0;i<16;i++){context_data_val=(context_data_val<<1)|(value&1);if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}value=value>>1;}}context_enlargeIn--;if(context_enlargeIn==0){context_enlargeIn=Math.pow(2,context_numBits);context_numBits++;}delete context_dictionaryToCreate[context_w];}else{value=context_dictionary[context_w];for(i=0;i<context_numBits;i++){context_data_val=(context_data_val<<1)|(value&1);if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}value=value>>1;}}context_enlargeIn--;if(context_enlargeIn==0){context_enlargeIn=Math.pow(2,context_numBits);context_numBits++;}context_dictionary[context_wc]=context_dictSize++;context_w=String(context_c);}}if(context_w!==""){if(Object.prototype.hasOwnProperty.call(context_dictionaryToCreate,context_w)){if(context_w.charCodeAt(0)<256){for(i=0;i<context_numBits;i++){context_data_val=(context_data_val<<1);if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}}value=context_w.charCodeAt(0);for(i=0;i<8;i++){context_data_val=(context_data_val<<1)|(value&1);if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}value=value>>1;}}else{value=1;for(i=0;i<context_numBits;i++){context_data_val=(context_data_val<<1)|value;if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}value=0;}value=context_w.charCodeAt(0);for(i=0;i<16;i++){context_data_val=(context_data_val<<1)|(value&1);if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}value=value>>1;}}context_enlargeIn--;if(context_enlargeIn==0){context_enlargeIn=Math.pow(2,context_numBits);context_numBits++;}delete context_dictionaryToCreate[context_w];}else{value=context_dictionary[context_w];for(i=0;i<context_numBits;i++){context_data_val=(context_data_val<<1)|(value&1);if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}value=value>>1;}}context_enlargeIn--;if(context_enlargeIn==0){context_enlargeIn=Math.pow(2,context_numBits);context_numBits++;}}value=2;for(i=0;i<context_numBits;i++){context_data_val=(context_data_val<<1)|(value&1);if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}value=value>>1;}for(;;){context_data_val=(context_data_val<<1);if(context_data_position==bitsPerChar-1){context_data.push(getCharFromInt(context_data_val));break;}else context_data_position++;}return context_data.join('');},_decompress:function(length,resetValue,getNextValue){var dictionary=[],next,enlargeIn=4,dictSize=4,numBits=3,entry="",result=[],i,w,bits,resb,maxpower,power,c,data={val:getNextValue(0),position:resetValue,index:1};for(i=0;i<3;i+=1)dictionary[i]=i;bits=0;maxpower=Math.pow(2,2);power=1;while(power!=maxpower){resb=data.val&data.position;data.position>>=1;if(data.position==0){data.position=resetValue;data.val=getNextValue(data.index++);}bits|=(resb>0?1:0)*power;power<<=1;}switch(next=bits){case 0:bits=0;maxpower=Math.pow(2,8);power=1;while(power!=maxpower){resb=data.val&data.position;data.position>>=1;if(data.position==0){data.position=resetValue;data.val=getNextValue(data.index++);}bits|=(resb>0?1:0)*power;power<<=1;}c=String.fromCharCode(bits);break;case 1:bits=0;maxpower=Math.pow(2,16);power=1;while(power!=maxpower){resb=data.val&data.position;data.position>>=1;if(data.position==0){data.position=resetValue;data.val=getNextValue(data.index++);}bits|=(resb>0?1:0)*power;power<<=1;}c=String.fromCharCode(bits);break;case 2:return"";}dictionary[3]=c;w=c;result.push(c);while(true){if(data.index>length)return"";bits=0;maxpower=Math.pow(2,numBits);power=1;while(power!=maxpower){resb=data.val&data.position;data.position>>=1;if(data.position==0){data.position=resetValue;data.val=getNextValue(data.index++);}bits|=(resb>0?1:0)*power;power<<=1;}switch(c=bits){case 0:bits=0;maxpower=Math.pow(2,8);power=1;while(power!=maxpower){resb=data.val&data.position;data.position>>=1;if(data.position==0){data.position=resetValue;data.val=getNextValue(data.index++);}bits|=(resb>0?1:0)*power;power<<=1;}dictionary[dictSize++]=String.fromCharCode(bits);c=dictSize-1;enlargeIn--;break;case 1:bits=0;maxpower=Math.pow(2,16);power=1;while(power!=maxpower){resb=data.val&data.position;data.position>>=1;if(data.position==0){data.position=resetValue;data.val=getNextValue(data.index++);}bits|=(resb>0?1:0)*power;power<<=1;}dictionary[dictSize++]=String.fromCharCode(bits);c=dictSize-1;enlargeIn--;break;case 2:return result.join('');}if(enlargeIn==0){enlargeIn=Math.pow(2,numBits);numBits++;}if(dictionary[c]){entry=dictionary[c];}else{if(c===dictSize){entry=w+w.charAt(0);}else return null;}result.push(entry);dictionary[dictSize++]=w+entry.charAt(0);enlargeIn--;if(enlargeIn==0){enlargeIn=Math.pow(2,numBits);numBits++;}w=entry;}},};return LZString;}();
+
 /* ===================== ENCODE ===================== */
 function encodeData(obj) {
-  try {
-    const b = new TextEncoder().encode(JSON.stringify(obj));
-    let s = ''; b.forEach(x => s += String.fromCharCode(x));
-    return btoa(s);
-  } catch { return ''; }
+  try { return LZString.compressToEncodedURIComponent(JSON.stringify(obj)); }
+  catch { return ''; }
 }
 function decodeData(str) {
   try {
+    // tenta LZString primeiro, depois base64 legado
+    const lz = LZString.decompressFromEncodedURIComponent(str);
+    if (lz) return JSON.parse(lz);
     const s = atob(str);
     const b = new Uint8Array(s.length);
     for (let i = 0; i < s.length; i++) b[i] = s.charCodeAt(i);
@@ -404,8 +417,21 @@ function updPreview() {
   $('pv-sucumb').style.display=sucumb>0?'flex':'none'; if(sucumb>0) $('pv-sucumb-v').textContent='R$ '+fmtBRL(sucumb);
 }
 
+/* ===================== ENCURTADOR (is.gd — gratuito, sem conta) ===================== */
+async function encurtarUrl(longUrl) {
+  try {
+    const resp = await fetch(
+      'https://is.gd/create.php?format=json&url=' + encodeURIComponent(longUrl),
+      { signal: AbortSignal.timeout(5000) }
+    );
+    if (!resp.ok) return longUrl;
+    const d = await resp.json();
+    return d.shorturl || longUrl;
+  } catch { return longUrl; }
+}
+
 /* ===================== GERAR ===================== */
-function gerarFolder() {
+async function gerarFolder() {
   const trat=$('f-trat').value, nome=$('f-nome').value.trim();
   if (!nome) { alert('Preencha o nome do cliente.'); return; }
   const prov=parseBRL($('f-prov').value), exito=parseBRL($('f-exito').value);
@@ -422,7 +448,13 @@ function gerarFolder() {
     exito, sucumb: parseBRL($('f-sucumb').value)
   };
   _isClient = false;
-  const url = window.location.href.split('?')[0] + '?d=' + encodeData(_data);
+  const longUrl = window.location.href.split('?')[0] + '?d=' + encodeData(_data);
+
+  const btn = document.querySelector('.btn-gerar');
+  btn.textContent = '⏳ Gerando link...'; btn.disabled = true;
+  const url = await encurtarUrl(longUrl);
+  btn.textContent = '⚡ Gerar Link para o Cliente'; btn.disabled = false;
+
   $('share-link-input').value = url;
   const msg = `Olá, ${trat} ${nome}! Segue o link com o detalhamento do resultado do seu processo: ${url}`;
   $('wa-share-btn').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
